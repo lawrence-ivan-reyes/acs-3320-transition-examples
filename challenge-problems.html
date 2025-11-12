@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transitions - Challenge Problems</title>
+  <style>
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding: 3rem;
+        background-color: #f5f5f5;
+    }
+    
+    .challenges {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .challenge-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .challenge-container h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .challenge-container p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .demo-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 150px;
+      background: #fafafa;
+      border-radius: 4px;
+      padding: 2rem;
+    }
+
+    /* challenge 1: badge button */
+    .badge-button {
+      display: inline-block;
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      background-color: #1e90ff; 
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 300ms, transform 100ms;
+    }
+
+    .badge-button:hover {
+      background-color: #1565c0; 
+    }
+
+    .badge-button:active {
+      background-color: #e74c3c; 
+      transform: scale(0.95);
+    }
+
+    .badge-button::before {
+      content: "$1.99";
+      position: absolute;
+      right: -0.5rem;
+      top: -0.5rem;
+      background-color: #ff6347; 
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      transition: all 350ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      scale: 0;
+      rotate: -12deg;
+      opacity: 0;
+      box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .badge-button:hover::before {
+      scale: 1;
+      rotate: 8deg;
+      opacity: 1;
+    }
+
+    .badge-button:active::before {
+      scale: 0;
+      opacity: 0;
+    }
+
+    /* challenge 2: hamburger button */
+    .hamburger-button {
+      display: inline-block;
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border: 3px solid #333;
+      border-radius: 8px;
+      background-color: #fafafa;
+      cursor: pointer;
+      overflow: hidden; 
+    }
+
+    .hamburger-button > div {
+      position: absolute;
+      left: 10%;
+      width: 80%;
+      transition: all 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* top bun */
+    .hamburger-button > div:nth-child(1) {
+      top: 15%;
+      height: 22%;
+      background-color: #daa06d; 
+      border-radius: 50% 50% 3px 3px;
+    }
+
+    /* lettuce */
+    .hamburger-button > div:nth-child(2) {
+      top: 42%;
+      height: 8%;
+      background-color: #6fbf73; 
+      border-radius: 30px;
+    }
+
+    /* patty */
+    .hamburger-button > div:nth-child(3) {
+      top: 48%;
+      height: 14%;
+      background-color: #6b3710;
+      border-radius: 40px;
+    }
+
+    /* tomato */
+    .hamburger-button > div:nth-child(4) {
+      top: 60%;
+      height: 6%;
+      background-color: #e85d5d; 
+      border-radius: 25px;
+    }
+
+    /* bottom bun */
+    .hamburger-button > div:nth-child(5) {
+      top: 70%;
+      height: 16%;
+      background-color: #c9975b; 
+      border-radius: 3px 3px 50% 50%;
+    }
+
+    .hamburger-button:hover > div:nth-child(1) {
+      top: -30%;
+      rotate: -15deg;
+    }
+
+    .hamburger-button:hover > div:nth-child(2) {
+      top: -35%;
+      rotate: 20deg;
+    }
+
+    .hamburger-button:hover > div:nth-child(3) {
+      top: 15%;
+      height: 70%;
+      border-radius: 50%;
+    }
+
+    .hamburger-button:hover > div:nth-child(4) {
+      top: 125%;
+      rotate: -25deg;
+    }
+
+    .hamburger-button:hover > div:nth-child(5) {
+      top: 130%;
+      rotate: 15deg;
+    }
+
+    /* challenge 3: fancy checkbox */
+    .fancy-checkbox {
+      display: inline-block;
+      position: relative;
+      padding-left: 2.5rem;
+      line-height: 2rem;
+      cursor: pointer;
+      color: #888; 
+      font-size: 1rem;
+      user-select: none;
+      transition: color 300ms;
+      overflow: hidden;
+    }
+
+    .fancy-checkbox input {
+      display: none;
+    }
+
+    /* checkbox box */
+    .fancy-checkbox::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: calc(2rem - 6px);
+      height: calc(2rem - 6px);
+      border: 3px solid #999;
+      border-radius: 5px;
+      background-color: white;
+      transition: all 300ms;
+    }
+
+    /* checkmark */
+    .fancy-checkbox::after {
+      content: "";
+      position: absolute;
+      left: 0.65rem;
+      top: 3rem; 
+      width: 0.45rem;
+      height: 1rem;
+      border-bottom: 3px solid white;
+      border-right: 3px solid white;
+      rotate: 45deg;
+      transition: all 400ms cubic-bezier(0.175, 0.885, 0.32, 1.575);
+      opacity: 0;
+    }
+
+    .fancy-checkbox:has(input:checked)::before {
+      background-color: #5bc12f;
+      border-color: #5bc12f;
+    }
+
+    .fancy-checkbox:has(input:checked)::after {
+      top: 0.25rem; 
+      opacity: 1;
+    }
+
+    .fancy-checkbox:has(input:checked) {
+      color: #222;
+    }
+
+
+  </style>
+</head>
+<body>
+    <div class="challenges">
+      <!-- badge button -->
+      <div class="challenge-container">
+        <h2>Challenge 1: Badge Button</h2>
+        <p><strong>Challenge:</strong> Button shows a badge when hovered. Notice the change when clicked.</p>
+        <p><small>Hover to see badge appear (dark blue). Click and hold to see it turn red and badge disappear.</small></p>
+        <div class="demo-area">
+          <button class="badge-button">Order</button>
+        </div>
+      </div>
+  
+      <!-- hamburger button -->
+      <div class="challenge-container">
+        <h2>Challenge 2: Hamburger Button</h2>
+        <p><strong>Challenge:</strong> Hamburger button. <strong>Bonus challenge:</strong> Add lettuce and tomato.</p>
+        <p><small>Hover to see buns fly away and burger fill the center.</small></p>
+        <div class="demo-area">
+          <div class="hamburger-button">
+            <div></div> <!-- top bun -->
+            <div></div> <!-- lettuce -->
+            <div></div> <!-- patty -->
+            <div></div> <!-- tomato -->
+            <div></div> <!-- bottom bun -->
+          </div>
+        </div>
+      </div>
+  
+      <!-- fancy checkbox -->
+      <div class="challenge-container">
+        <h2>Challenge 3: Fancy Checkbox</h2>
+        <p><strong>Challenge:</strong> Make a fancy check box. Notice the easing function.</p>
+        <p><small>Click to see checkmark fly up from below. Notice you can click the label text too!</small></p>
+        <div class="demo-area">
+          <label class="fancy-checkbox">
+            <input type="checkbox">
+            Onions
+          </label>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
