@@ -84,12 +84,11 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   /* Sets the time to apply changes to this element. TODO: change the 
   time, make it larger then smaller, test the effect in the browser. 
   (s = secs ms = milliseconds) */
-  transition: 1000ms;
+  transition: 500ms;
   /* All of the properties of this element will be "transitioned". 
   TODO: Add some more properties here to be transitioned, for example, 
   border-radius, border-width, border-color, opacity, width, height 
   background-color, etc. */
-
 
   &:hover {
     /* These changes occur over the transition time set above */
@@ -99,6 +98,9 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
     TODO: change the values here and test the effect in the browser. */
     rotate: 12deg;
     scale: 1.25;
+    border-radius: 50%;
+    opacity: 0.5;
+    background-color: rgb(216, 198, 40);
 
     /* TODO: Set new value for the extra properties you added above. 
     Test your work and watch them change. */
@@ -120,14 +122,16 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   ease-in-out. Look for the effect in the browser.
   TODO: Follow this link: https://matthewlein.com/tools/ceaser 
   Create a custom timing function and try it here. */
-  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-timing-function: cubic-bezier(0.420, 0.000, 0.580, 1.000); 
 
   /* TODO: Add some new properties here. Some will be transitioned, 
   others will not. */
+  border-radius: 0;
+  opacity: 1;
+  color: white;
 
   /* TODO: Which properties will be transitioned by listing them here. */
-  transition-property: all;
-
+  transition-property: scale, rotate, border-radius;
   
   &:hover {
     rotate: 12deg;
@@ -136,6 +140,9 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
     /* TODO: Assign new vlaues to all the properties you added above.
     Test your work. Only the properties that are listed in 
     transition-properties should change smoothly. */
+    border-radius: 50%;
+    opacity: 0.3;
+    color: black;
   }
 }
 
@@ -153,7 +160,7 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   https://developer.chrome.com/docs/css-ui/css-linear-easing-function 
   TODO: Use the link above to explore linear() timing-function. 
   TODO: try --linear-spring here. */
-  transition-timing-function:var(--linear-bounce);
+  transition-timing-function:var(--linear-spring);
   &:hover {
     rotate: 12deg;
     scale: 1.25;
@@ -175,7 +182,7 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   Use this site to generate bezier curves: https://cubic-bezier.com/ 
   TODO: Use the link above and create your own timing function. Test
   it here. */
-  transition-timing-function: cubic-bezier(0.83,0,0.22,1.0);
+  transition-timing-function: cubic-bezier(.05,.81,.86,.24);
   &:hover {
     rotate: 12deg;
     scale: 1.25;
@@ -201,7 +208,7 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   /* Changes in color and opacity usually look best, not always, 
   with a linear transition! 
   TODO: Try other timing functions here and compare. */
-  transition-timing-function: linear;
+  transition-timing-function: ease-in-out;
 
   &:hover {
     /* Transition colors */
@@ -233,7 +240,7 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   &:hover {
     /* Animate anything, here I animated the border width! 
     TODO: Try a smaller value here, like 10px */
-    border-width: 50px;
+    border-width: 5px;
     color: black
   }
 }
@@ -253,13 +260,15 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   justify-content: center;
   align-items: center;
   background-color: #f00;
+  opacity: 1;
 
   /* Transition multiple properties by creating a list.
   Each item here is listed align-self: 
   <property> || <duration> || <timing-function> || <delay> [, ...]; */
   transition: 
     color 400ms linear 0ms,         /* color transition */
-    border-radius 400ms ease 500ms; /* border-radius transition */
+    border-radius 400ms ease 500ms, /* border-radius transition */
+    opacity 600ms ease-in 200ms;
     /* TODO: Notice the commas above. There are two transitions here! 
     Edit each of these, and test the results in the browser. Try 
     changing the delay time (the second time value!) */
@@ -271,6 +280,7 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
   &:hover {
     color: black;
     border-radius: 50%; 
+    opacity: 0.5;
     /* TODO: Change the value of the property you added here. */
   }
 }
@@ -370,7 +380,7 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
 
   /* TODO: Identify how delay is used here. Change the delay 
   value and observe the results. */
-  transition: 200ms linear 200ms;
+  transition: 200ms linear 0ms;
 
   /* Create an extra element and animate it */
   &::before {
@@ -423,7 +433,7 @@ Looks for these in the code below: --linear-spring, and --linear-bounce */
     /* https://css-tricks.com/almanac/properties/t/transform-origin/ */
     transform-origin: center center;
     /* TODO: Improve the timing function here to get a better effect. */
-    transition-timing-function: var(--linear-bounce);
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
   /* Create an extra element and animate it */
@@ -774,7 +784,7 @@ So for this example I created three child divs to animate */
   font-weight: 100;
   color: white;
   /* Can't animate gradients (yet) */
-  background-image: linear-gradient(45deg, red, blue);
+  background-image: linear-gradient(45deg, purple, orange);
   /* The ::before element will be positioned absolute. 
   make this its context */
   position: relative;
@@ -788,13 +798,14 @@ So for this example I created three child divs to animate */
     position: absolute;
     /* Shorthand for left, top, right, and bottom properties */
     inset: 0;
-    background-image: linear-gradient(-45deg, green, gold);
+    background-image: linear-gradient(-45deg, cyan, magenta);
     opacity: 0;
     transition: 600ms;
   }
 
   &:hover {
     color: black;
+    rotate: 180deg;
     &::after {
       opacity: 1;
     }
